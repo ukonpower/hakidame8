@@ -20,6 +20,7 @@ export class DeferredPostProcess extends GLP.PostProcess {
 		] );
 
 		const shading = new GLP.PostProcessPass( {
+			name: "deferredShading",
 			frag: deferredShadingFrag,
 			renderTarget: rtShading,
 		} );

@@ -139,6 +139,7 @@ export class MainCamera extends GLP.Entity {
 		] );
 
 		this.lightShaft = new GLP.PostProcessPass( {
+			name: 'lightShaft',
 			input: [],
 			frag: lightShaftFrag,
 			renderTarget: this.rtLightShaft1,
@@ -165,6 +166,7 @@ export class MainCamera extends GLP.Entity {
 		] );
 
 		this.ssr = new GLP.PostProcessPass( {
+			name: 'ssr',
 			input: [ param.renderTarget.gBuffer.textures[ 0 ], param.renderTarget.gBuffer.textures[ 1 ] ],
 			frag: ssrFrag,
 			renderTarget: this.rtSSR1,
@@ -195,6 +197,7 @@ export class MainCamera extends GLP.Entity {
 		// ss-composite
 
 		this.ssComposite = new GLP.PostProcessPass( {
+			name: 'ssComposite',
 			input: [ param.renderTarget.gBuffer.textures[ 0 ], param.renderTarget.gBuffer.textures[ 1 ], param.renderTarget.forwardBuffer.textures[ 0 ] ],
 			frag: ssCompositeFrag,
 			uniforms: GLP.UniformsUtils.merge( this.commonUniforms, {
@@ -228,6 +231,7 @@ export class MainCamera extends GLP.Entity {
 		this.dofParams = new GLP.Vector( 10, 0.05, 20, 0.05 );
 
 		this.dofCoc = new GLP.PostProcessPass( {
+			name: 'dof/coc',
 			input: [ this.rt1.textures[ 0 ], param.renderTarget.gBuffer.depthTexture ],
 			frag: dofCoc,
 			uniforms: GLP.UniformsUtils.merge( globalUniforms.time, {
@@ -240,6 +244,7 @@ export class MainCamera extends GLP.Entity {
 		} );
 
 		this.dofBokeh = new GLP.PostProcessPass( {
+			name: 'dof/bokeh',
 			input: [ this.rtDofCoc.textures[ 0 ] ],
 			frag: dofBokeh,
 			uniforms: GLP.UniformsUtils.merge( globalUniforms.time, {
@@ -252,6 +257,7 @@ export class MainCamera extends GLP.Entity {
 		} );
 
 		this.dofComposite = new GLP.PostProcessPass( {
+			name: 'dof/composite',
 			input: [ this.rt1.textures[ 0 ], this.rtDofBokeh.textures[ 0 ] ],
 			frag: dofComposite,
 			uniforms: GLP.UniformsUtils.merge( {} ),
@@ -261,6 +267,7 @@ export class MainCamera extends GLP.Entity {
 		// fxaa
 
 		this.fxaa = new GLP.PostProcessPass( {
+			name: 'fxaa',
 			input: [ this.rtDofComposite.textures[ 0 ] ],
 			frag: fxaaFrag,
 			uniforms: this.commonUniforms,
@@ -287,6 +294,7 @@ export class MainCamera extends GLP.Entity {
 		}
 
 		this.bloomBright = new GLP.PostProcessPass( {
+			name: 'bloom/bright/',
 			input: this.rt1.textures,
 			frag: bloomBrightFrag,
 			uniforms: GLP.UniformsUtils.merge( globalUniforms.time, {
@@ -313,6 +321,7 @@ export class MainCamera extends GLP.Entity {
 			this.resolutionBloom.push( resolution );
 
 			this.bloomBlur.push( new GLP.PostProcessPass( {
+				name: 'bloom/blur/' + i + '/v',
 				input: bloomInput,
 				renderTarget: rtVertical,
 				frag: bloomBlurFrag,
@@ -336,6 +345,7 @@ export class MainCamera extends GLP.Entity {
 			} ) );
 
 			this.bloomBlur.push( new GLP.PostProcessPass( {
+				name: 'bloom/blur/' + i + '/w',
 				input: rtVertical.textures,
 				renderTarget: rtHorizonal,
 				frag: bloomBlurFrag,
@@ -364,6 +374,7 @@ export class MainCamera extends GLP.Entity {
 		// composite
 
 		this.composite = new GLP.PostProcessPass( {
+			name: 'dof/bokeh',
 			input: [ this.rt1.textures[ 0 ] ],
 			frag: compositeFrag,
 			uniforms: GLP.UniformsUtils.merge( this.commonUniforms, {

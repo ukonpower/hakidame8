@@ -20,6 +20,7 @@ export class FluidParticles extends GLP.Entity {
 		// gpu
 
 		this.gpu = new GLP.GPUComputePass( gl, {
+			name: 'gpu/fluidParticle',
 			size: count,
 			layerCnt: 2,
 			frag: fluidParticlesCompute,

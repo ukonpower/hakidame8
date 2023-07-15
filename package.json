@@ -1,13 +1,13 @@
 {
 	"private": true,
-	"name": "6.hakidame",
+	"name": "8.hakidame",
 	"version": "0.0.1",
 	"description": "",
 	"author": "ukonpower",
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite",
-		"build": "vite build && cp -rf ./public/. ../hakidame/src/public/6/ && cp ./config.json ../hakidame/src/public/6/"
+		"build": "vite build && cp -rf ./public/. ../hakidame/src/public/8/ && cp ./config.json ../hakidame/src/public/8/"
 	},
 	"workspaces": [
 		"packages/*"
@@ -26,10 +26,11 @@
 		"vite": "^3.0.5"
 	},
 	"volta": {
-		"node": "16.16.0"
+		"node": "18.16.1"
 	},
 	"dependencies": {
 		"@rollup/pluginutils": "^5.0.2",
-		"terser": "^5.17.7"
+		"terser": "^5.17.7",
+		"webgl-memory": "^1.0.15"
 	}
 }

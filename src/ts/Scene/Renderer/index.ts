@@ -1,6 +1,6 @@
 import * as GLP from 'glpower';
 
-import { gl, power } from "~/ts/Globals";
+import { gl, gpuState, power } from "~/ts/Globals";
 import { ProgramManager } from "./ProgramManager";
 import { shaderParse } from "./ShaderParser";
 import { DeferredPostProcess } from './DeferredPostProcess';
@@ -64,7 +64,12 @@ export class Renderer extends GLP.Entity {
 
 	// gpu state
 
-	private gpuState: GPUState;
+	private glState: GPUState;
+
+	// render query
+
+	private queryList: WebGLQuery[];
+	private queryListQueued: {name: string, query: WebGLQuery}[];
 
 	// tmp
 
@@ -101,7 +106,7 @@ export class Renderer extends GLP.Entity {
 
 		// gpu
 
-		this.gpuState = [
+		this.glState = [
 			{
 				key: "cullFace",
 				command: gl.CULL_FACE,
@@ -114,6 +119,11 @@ export class Renderer extends GLP.Entity {
 			},
 		];
 
+		// query
+
+		this.queryList = [];
+		this.queryListQueued = [];
+
 		// tmp
 
 		this.tmpLightDirection = new GLP.Vector();
@@ -125,6 +135,52 @@ export class Renderer extends GLP.Entity {
 	}
 
 	public render( stack: RenderStack ) {
+
+		if ( process.env.NODE_ENV == 'development' ) {
+
+			const disjoint = gl.getParameter( power.extDisJointTimerQuery.GPU_DISJOINT_EXT );
+
+			if ( disjoint ) {
+
+				this.queryList.forEach( q => gl.deleteQuery( q ) );
+
+				this.queryList.length = 0;
+
+			} else {
+
+				if ( this.queryListQueued.length > 0 ) {
+
+					const l = this.queryListQueued.length;
+
+					for ( let i = l - 1; i >= 0; i -- ) {
+
+						const q = this.queryListQueued[ i ];
+
+						const resultAvailable = gl.getQueryParameter( q.query, gl.QUERY_RESULT_AVAILABLE );
+
+						if ( resultAvailable ) {
+
+							const result = gl.getQueryParameter( q.query, gl.QUERY_RESULT );
+
+							this.queryList.push( q.query );
+
+							this.queryListQueued.splice( i, 1 );
+
+							if ( gpuState ) {
+
+								gpuState.setRenderTime( q.name, result / 1000 / 1000 );
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
 
 		// light
 
@@ -390,7 +446,7 @@ export class Renderer extends GLP.Entity {
 
 			}
 
-			this.draw( "id", "postprocess", this.quad, pass, matrix );
+			this.draw( postprocess.uuid.toString(), "postprocess", this.quad, pass, matrix );
 
 			pass.onAfterRender();
 
@@ -404,9 +460,9 @@ export class Renderer extends GLP.Entity {
 
 		// status
 
-		for ( let i = 0; i < this.gpuState.length; i ++ ) {
+		for ( let i = 0; i < this.glState.length; i ++ ) {
 
-			const item = this.gpuState[ i ];
+			const item = this.glState[ i ];
 			const newState = ( material as any )[ item.key ];
 
 			if ( item.state != newState ) {
@@ -659,6 +715,30 @@ export class Renderer extends GLP.Entity {
 
 				gl.bindVertexArray( vao.getVAO() );
 
+				// query ------------------------
+
+				let query: WebGLQuery | null = null;
+
+				if ( process.env.NODE_ENV == 'development' ) {
+
+					query = this.queryList.pop() || null;
+
+					if ( query == null ) {
+
+						query = gl.createQuery();
+
+					}
+
+					if ( query ) {
+
+						gl.beginQuery( power.extDisJointTimerQuery.TIME_ELAPSED_EXT, query );
+
+					}
+
+				}
+
+				// -----------------------------
+
 				const indexBuffer = vao.indexBuffer;
 
 				let indexBufferArrayType: number = gl.UNSIGNED_SHORT;
@@ -668,7 +748,6 @@ export class Renderer extends GLP.Entity {
 					indexBufferArrayType = gl.UNSIGNED_INT;
 
 				}
-
 
 				if ( vao.instanceCount > 0 ) {
 
@@ -695,6 +774,25 @@ export class Renderer extends GLP.Entity {
 					}
 
 				}
+
+				// quer ------------------------
+
+				if ( process.env.NODE_ENV == 'development' ) {
+
+					if ( query ) {
+
+						gl.endQuery( power.extDisJointTimerQuery.TIME_ELAPSED_EXT );
+
+						this.queryListQueued.push( {
+							name: `${renderType}/${material.name}[${drawId}]`,
+							query: query
+						} );
+
+					}
+
+				}
+
+				// ----------------------------
 
 				gl.bindVertexArray( null );
 

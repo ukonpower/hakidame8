@@ -9,7 +9,7 @@ import { Matrix } from "../../Math/Matrix";
 import { Quaternion } from "../../Math/Quaternion";
 import { Vector } from "../../Math/Vector";
 import { EventEmitter } from "../../utils/EventEmitter";
-import { BLidge, BLidgeNode } from "../BLidge";
+import { BLidgeNode } from "../BLidge";
 import { BLidger } from "../Component/BLidger";
 
 export type EntityUpdateEvent = {
@@ -22,6 +22,8 @@ export type EntityUpdateEvent = {
 export type EntityResizeEvent = {
 	resolution: Vector
 }
+
+let entityCount: number = 0;
 
 export class Entity extends EventEmitter {
 
@@ -50,7 +52,7 @@ export class Entity extends EventEmitter {
 		super();
 
 		this.name = "";
-		this.uuid = new Date().getTime() + Math.floor( Math.random() * 1000000 );
+		this.uuid = entityCount ++;
 
 		this.position = new Vector();
 		this.quaternion = new Quaternion( 0.0, 0.0, 0.0, 1.0 );
