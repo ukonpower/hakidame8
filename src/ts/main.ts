@@ -56,18 +56,25 @@ class App {
 
 				const memoryElm = document.createElement( 'div' );
 				memoryElm.style.position = "absolute";
-				memoryElm.style.width = "250px";
+				memoryElm.style.width = "50%";
+				memoryElm.style.maxWidth = "200px";
+				memoryElm.style.height = "100%";
+				memoryElm.style.top = '0';
 				memoryElm.style.left = "0";
 				memoryElm.style.overflowY = 'auto';
-				this.cnavasContainer.appendChild( memoryElm );
+				memoryElm.style.fontSize = "12px";
+				this.canvasWrap.appendChild( memoryElm );
 
 				const timerElm = document.createElement( 'div' );
 				timerElm.style.position = "absolute";
-				timerElm.style.width = "250px";
+				timerElm.style.maxWidth = "200px";
+				timerElm.style.width = "50%";
 				timerElm.style.height = "100%";
+				timerElm.style.top = "0";
 				timerElm.style.right = "0";
 				timerElm.style.overflowY = 'auto';
-				this.cnavasContainer.appendChild( timerElm );
+				timerElm.style.fontSize = "12px";
+				this.canvasWrap.appendChild( timerElm );
 
 				gpuState.init( memoryElm, timerElm );
 
@@ -98,7 +105,7 @@ class App {
 
 		const canvasAspect = window.innerWidth / window.innerHeight;
 
-		let scale = canvasAspect < 1.0 ? Math.min( 1.5, window.devicePixelRatio ) : 1.0;
+		let scale = canvasAspect < 1.0 ? Math.min( 1.0, window.devicePixelRatio ) : 1.0;
 		scale *= 1.0;
 
 		const blkRatioX = canvasAspect < 1.0 ? 0.75 : 1.0;
@@ -107,10 +114,14 @@ class App {
 		const width = window.innerWidth * scale * blkRatioX;
 		const height = window.innerHeight * scale * blkRatioY;
 
+		this.canvasWrap.style.width = width / scale + 'px';
+		this.canvasWrap.style.height = height / scale + 'px';
+
 		this.canvas.width = width;
 		this.canvas.height = height;
-		this.canvas.style.width = width / scale + "";
-		this.canvas.style.height = height / scale + "";
+
+		this.canvas.style.width = "100%";
+		this.canvas.style.height = "100%";
 
 		this.scene.resize( new GLP.Vector( this.canvas.width, this.canvas.height ) );
 
