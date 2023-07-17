@@ -57,7 +57,7 @@ class App {
 				const memoryElm = document.createElement( 'div' );
 				memoryElm.style.position = "absolute";
 				memoryElm.style.width = "50%";
-				memoryElm.style.maxWidth = "200px";
+				memoryElm.style.maxWidth = "300px";
 				memoryElm.style.height = "100%";
 				memoryElm.style.top = '0';
 				memoryElm.style.left = "0";
@@ -67,7 +67,7 @@ class App {
 
 				const timerElm = document.createElement( 'div' );
 				timerElm.style.position = "absolute";
-				timerElm.style.maxWidth = "200px";
+				timerElm.style.maxWidth = "300px";
 				timerElm.style.width = "50%";
 				timerElm.style.height = "100%";
 				timerElm.style.top = "0";
@@ -75,6 +75,8 @@ class App {
 				timerElm.style.overflowY = 'auto';
 				timerElm.style.fontSize = "12px";
 				this.canvasWrap.appendChild( timerElm );
+
+				this.canvasWrap.style.fontFamily = "'Share Tech Mono', monospace";
 
 				gpuState.init( memoryElm, timerElm );
 
@@ -105,8 +107,7 @@ class App {
 
 		const canvasAspect = window.innerWidth / window.innerHeight;
 
-		let scale = canvasAspect < 1.0 ? Math.min( 1.0, window.devicePixelRatio ) : 1.0;
-		scale *= 1.0;
+		const scale = canvasAspect < 1.0 ? window.devicePixelRatio : 1.0;
 
 		const blkRatioX = canvasAspect < 1.0 ? 0.75 : 1.0;
 		const blkRatioY = canvasAspect < 1.0 ? 0.7 : 0.5;

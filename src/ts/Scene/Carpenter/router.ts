@@ -11,6 +11,7 @@ import { ERing } from '../Entities/Effects/ERing';
 import { ECross } from '../Entities/Effects/ECross';
 import { EArea } from '../Entities/Effects/EArea';
 import { EGridLine } from '../Entities/Effects/EGridLine';
+import { Mover } from '../Entities/Mover';
 
 export const router = ( node: GLP.BLidgeNode ) => {
 
@@ -55,6 +56,12 @@ export const router = ( node: GLP.BLidgeNode ) => {
 	} else if ( node.class == 'EArea' ) {
 
 		return new EArea();
+
+	}
+
+	if ( node.class == "Mover" ) {
+
+		return new Mover();
 
 	}
 

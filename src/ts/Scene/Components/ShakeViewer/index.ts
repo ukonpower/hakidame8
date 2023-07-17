@@ -3,16 +3,18 @@ import * as GLP from 'glpower';
 export class ShakeViewer extends GLP.Component {
 
 	private shakePower: number;
+	private shakeSpeed: number;
 	private shakeMatrix: GLP.Matrix;
 	private shakeQua: GLP.Quaternion;
 
 	private cameraComponent?: GLP.Camera;
 
-	constructor( shakePower: number = 1.0 ) {
+	constructor( shakePower: number = 1.0, shakeSpeed: number = 1.0 ) {
 
 		super();
 
 		this.shakePower = shakePower;
+		this.shakeSpeed = shakeSpeed;
 		this.shakeMatrix = new GLP.Matrix();
 		this.shakeQua = new GLP.Quaternion();
 
@@ -61,7 +63,9 @@ export class ShakeViewer extends GLP.Component {
 
 			}
 
-			this.shakeQua.setFromEuler( { x: Math.sin( event.time * 2.0 ) * shake, y: Math.sin( event.time * 2.5 ) * shake, z: 0 } );
+			const t = event.time * this.shakeSpeed;
+
+			this.shakeQua.setFromEuler( { x: Math.sin( t * 2.0 ) * shake, y: Math.sin( t * 2.5 ) * shake, z: 0 } );
 
 			this.shakeMatrix.identity().applyQuaternion( this.shakeQua );
 

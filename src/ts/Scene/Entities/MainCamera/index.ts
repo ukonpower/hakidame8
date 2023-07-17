@@ -14,6 +14,7 @@ import dofBokeh from './shaders/dofBokeh.fs';
 import ssCompositeFrag from './shaders/ssComposite.fs';
 import compositeFrag from './shaders/composite.fs';
 import { OrbitControls } from '../../Components/OrbitControls';
+import { ShakeViewer } from '../../Components/ShakeViewer';
 
 export class MainCamera extends GLP.Entity {
 
@@ -101,7 +102,7 @@ export class MainCamera extends GLP.Entity {
 
 		const lookAt = this.addComponent( 'lookAt', new LookAt() );
 
-		// this.addComponent( 'shakeViewer', new ShakeViewer( 0.9 ) );
+		this.addComponent( 'shakeViewer', new ShakeViewer( 1.5, 1.5 ) );
 		// this.addComponent( 'rotateViewer', new RotateViewer( 2.0 ) );
 
 		// resolution
@@ -492,7 +493,7 @@ export class MainCamera extends GLP.Entity {
 		const focusDistance = this.tmpVector1.sub( this.tmpVector2 ).length();
 		const kFilmHeight = 0.036;
 		const flocalLength = 0.5 * kFilmHeight / Math.tan( 0.5 * ( fov / 180 * Math.PI ) );
-		const maxCoc = 1 / this.rtDofBokeh.size.y * 3.0;
+		const maxCoc = 1 / this.rtDofBokeh.size.y * 1.0;
 		const rcpMaxCoC = 1.0 / maxCoc;
 		const coeff = flocalLength * flocalLength / ( 0.3 * ( focusDistance - flocalLength ) * kFilmHeight * 2.0 ) * 0.5;
 
