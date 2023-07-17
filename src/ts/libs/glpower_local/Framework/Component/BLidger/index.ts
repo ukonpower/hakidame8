@@ -140,7 +140,7 @@ export class BLidger extends Component {
 
 			if ( entity.getComponent( "geometry" ) && ! entity.getComponent( "material" ) ) {
 
-				entity.addComponent( "material", new Material( { type: [ "deferred", "shadowMap" ] } ) );
+				entity.addComponent( "material", new Material( { name: entity.name, type: [ "deferred", "shadowMap" ] } ) );
 
 			}
 

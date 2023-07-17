@@ -12,6 +12,8 @@ import { ECross } from '../Entities/Effects/ECross';
 import { EArea } from '../Entities/Effects/EArea';
 import { EGridLine } from '../Entities/Effects/EGridLine';
 import { Mover } from '../Entities/Mover';
+import { CeilingLight } from '../Entities/CeilingLight';
+import { DustParticles } from '../Entities/DustParticles';
 
 export const router = ( node: GLP.BLidgeNode ) => {
 
@@ -59,9 +61,19 @@ export const router = ( node: GLP.BLidgeNode ) => {
 
 	}
 
+	// custom
+
 	if ( node.class == "Mover" ) {
 
 		return new Mover();
+
+	} else if ( node.class == "CeilingLight" ) {
+
+		return new CeilingLight();
+
+	} else if ( node.class == "DustParticles" ) {
+
+		return new DustParticles();
 
 	}
 

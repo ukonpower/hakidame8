@@ -1,15 +1,12 @@
 import * as GLP from 'glpower';
 
-import { Material } from '~/ts/libs/framework/Components/Material';
-import { Entity } from '~/ts/libs/framework/Entity';
-import { hotGet, hotUpdate } from '~/ts/libs/framework/Utils/Hot';
 import { gl, globalUniforms } from '~/ts/Globals';
 
 import dustParticlesVert from './shaders/dustParticles.vs';
 import dustParticlesFrag from './shaders/dustParticles.fs';
-import { Geometry } from '~/ts/libs/framework/Components/Geometry';
+import { hotGet, hotUpdate } from '~/ts/libs/glpower_local/Framework/Utils/Hot';
 
-export class DustParticles extends Entity {
+export class DustParticles extends GLP.Entity {
 
 	constructor() {
 
@@ -17,8 +14,8 @@ export class DustParticles extends Entity {
 
 		// geometry
 
-		const range = new GLP.Vector( 10.0, 5.0, 10.0 );
-		const count = 300;
+		const range = new GLP.Vector( 1, 1, 1 );
+		const count = 500;
 
 		const positionArray = [];
 		const sizeArray = [];
@@ -33,13 +30,13 @@ export class DustParticles extends Entity {
 
 		}
 
-		const geo = this.addComponent( "geometry", new Geometry() );
+		const geo = this.addComponent( "geometry", new GLP.Geometry() );
 		geo.setAttribute( "position", new Float32Array( positionArray ), 3 );
 		geo.setAttribute( "size", new Float32Array( sizeArray ), 1 );
 
 		// mat
 
-		const mat = this.addComponent( "material", new Material( {
+		const mat = this.addComponent( "material", new GLP.Material( {
 			type: [ "forward" ],
 			uniforms: GLP.UniformsUtils.merge( globalUniforms.time, {
 				uRange: {

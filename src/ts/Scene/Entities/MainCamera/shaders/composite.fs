@@ -32,7 +32,7 @@ void main( void ) {
 	float len = length(cuv);
 
 	col = texture( sampler0, vUv ).xyz;
-	col = filmic( col ) * 1.1;
+	col = filmic( col ) * 1.0;
 
 	#pragma loop_start 4
 		col += texture( uBloomTexture[ LOOP_INDEX ], uv ).xyz * ( 0.5 + float(LOOP_INDEX) * 0.5 ) * 0.2;
