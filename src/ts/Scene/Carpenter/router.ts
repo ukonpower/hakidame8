@@ -14,6 +14,7 @@ import { EGridLine } from '../Entities/Effects/EGridLine';
 import { Mover } from '../Entities/Mover';
 import { CeilingLight } from '../Entities/CeilingLight';
 import { DustParticles } from '../Entities/DustParticles';
+import { Trails } from '../Entities/Trails';
 
 export const router = ( node: GLP.BLidgeNode ) => {
 
@@ -74,6 +75,10 @@ export const router = ( node: GLP.BLidgeNode ) => {
 	} else if ( node.class == "DustParticles" ) {
 
 		return new DustParticles();
+
+	} else if ( node.class == "Trails" ) {
+
+		return new Trails();
 
 	}
 

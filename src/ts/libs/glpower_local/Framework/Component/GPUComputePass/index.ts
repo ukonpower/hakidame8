@@ -42,7 +42,7 @@ export class GPUComputePass extends PostProcessPass {
 		}
 
 		super( { ...param, vert: param.vert || quadVert, renderTarget: rt1, uniforms: UniformsUtils.merge( param.uniforms, outputUniforms, {
-			uResolution: {
+			uGPUResolution: {
 				value: param.size,
 				type: "2f"
 			}
