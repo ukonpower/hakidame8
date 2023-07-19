@@ -39,8 +39,6 @@ void main( void ) {
     vec3 delta = ( comPosBuffer.xyz - nextPosBuffer.xyz );
 	vec3 vec = normalize( delta );
 
-	outPos *= 0.1 + (sin(trailId.x * TPI) * 0.5 + 0.5) * 0.9;
-
 	mat2 offsetRot = rotate( PI / 2.0 );
 	outPos.yz *= offsetRot;
 	outNormal.yz *= offsetRot;

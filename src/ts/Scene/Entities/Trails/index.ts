@@ -15,7 +15,7 @@ export class Trails extends GLP.Entity {
 
 		super();
 
-		const num = new GLP.Vector( 32, 512 );
+		const num = new GLP.Vector( 64, 128 );
 
 		// gpu
 
@@ -57,7 +57,7 @@ export class Trails extends GLP.Entity {
 
 		}
 
-		const geo = this.addComponent( "geometry", new GLP.CubeGeometry( 0.1, 0.1, 0.1, 1.0, num.x ) );
+		const geo = this.addComponent( "geometry", new GLP.CubeGeometry( 0.05, 0.05, 0.05, 1.0, num.x ) );
 		geo.setAttribute( "offsetPosition", new Float32Array( positionArray ), 3, { instanceDivisor: 1 } );
 		geo.setAttribute( "trailId", new Float32Array( trailIdArray ), 1, { instanceDivisor: 1 } );
 		geo.setAttribute( "id", new Float32Array( idArray ), 3, { instanceDivisor: 1 } );
@@ -67,17 +67,17 @@ export class Trails extends GLP.Entity {
 		const mat = this.addComponent( "material", new GLP.Material( {
 			name: "trails",
 			type: [ "deferred", 'shadowMap' ],
-			uniforms: GLP.UniformsUtils.merge( globalUniforms.time, globalUniforms.resolution, {
-				uRange: {
-					value: range,
-					type: "3f"
-				},
-				...this.gpu.outputUniforms
+			uniforms: GLP.UniformsUtils.merge( globalUniforms.time, this.gpu.outputUniforms, {
+				uGPUResolution: {
+					value: this.gpu.size,
+					type: "2f"
+				}
 			} ),
 			vert: hotGet( 'trailsVert', trailsVert ),
 			frag: hotGet( 'trailsFrag', trailsFrag ),
 			// drawType: gl.POINTS
 		} ) );
+
 
 		if ( import.meta.hot ) {
 
