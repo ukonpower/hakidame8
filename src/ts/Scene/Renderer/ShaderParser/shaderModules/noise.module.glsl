@@ -43,7 +43,7 @@ float noise(vec3 x) {
 
 // reference: https://thebookofshaders.com/13
 
-#define OCTAVES 6
+#define OCTAVES 3
 float fbm (in vec3 p) {
     // Initial values
     float value = 0.0;

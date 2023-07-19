@@ -1,4 +1,5 @@
 import * as GLP from 'glpower';
+import { globalUniforms } from '~/ts/Globals';
 
 export class Mover extends GLP.Entity {
 
@@ -22,7 +23,10 @@ export class Mover extends GLP.Entity {
 
 			}
 
-			c.position.z = c.userData.basePos.z + event.time * 0.4;
+			const move = event.time * 0.4;
+			globalUniforms.time.uMove.value = move * 0.02;
+
+			c.position.z = c.userData.basePos.z + move;
 
 			if ( c.position.z > 10.0 ) {
 

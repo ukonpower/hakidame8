@@ -18,6 +18,10 @@ export const globalUniforms: {[key: string]: GLP.Uniforms} = {
 		uTimeSeq: {
 			value: 0,
 			type: "1f"
+		},
+		uMove: {
+			value: 0,
+			type: "1f"
 		}
 	},
 	resolution: {
@@ -39,7 +43,7 @@ export const globalUniforms: {[key: string]: GLP.Uniforms} = {
 			value: new GLP.Matrix(),
 			type: 'Matrix4fv'
 		}
-	}
+	},
 };
 
 
