@@ -11,12 +11,14 @@ import { ERing } from '../Entities/Effects/ERing';
 import { ECross } from '../Entities/Effects/ECross';
 import { EArea } from '../Entities/Effects/EArea';
 import { EGridLine } from '../Entities/Effects/EGridLine';
-import { Trails } from '../Entities/Trails';
 import { CeilingLight } from '../Entities/Custom/CeilingLight';
 import { DustParticles } from '../Entities/Custom/DustParticles';
 import { Mover } from '../Entities/Custom/Mover';
 import { MonoTile } from '../Entities/Custom/MonoTile';
 import { Concrete } from '../Entities/Custom/Concrete';
+import { Frame } from '../Entities/Custom/Frame';
+import { Trails } from '../Entities/Custom/Trails';
+import { Target } from '../Entities/Custom/Target';
 
 export const router = ( node: GLP.BLidgeNode ) => {
 
@@ -62,10 +64,6 @@ export const router = ( node: GLP.BLidgeNode ) => {
 
 		return new EArea();
 
-	} else if ( node.class == "Trails" ) {
-
-		return new Trails();
-
 	}
 
 	// custom
@@ -89,6 +87,18 @@ export const router = ( node: GLP.BLidgeNode ) => {
 	} else if ( node.class == "Wall" ) {
 
 		return new Concrete();
+
+	} else if ( node.class == "Frame" ) {
+
+		return new Frame();
+
+	} else if ( node.class == "Trails" ) {
+
+		return new Trails();
+
+	} else if ( node.class == "Target" ) {
+
+		return new Target();
 
 	}
 

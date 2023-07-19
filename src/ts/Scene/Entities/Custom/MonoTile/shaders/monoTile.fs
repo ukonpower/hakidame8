@@ -19,7 +19,7 @@ void main( void ) {
 		
 	}
 
-	outColor *= t * 0.8 + 0.2;
+	outColor *= t * 0.6 + 0.4;
 	
 	#include <frag_out>
 

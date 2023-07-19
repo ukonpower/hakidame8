@@ -35,8 +35,6 @@ void main( void ) {
     vec4 nextPosBuffer = texture( gpuSampler0, vec2( posY - 1.0 / uGPUResolution.x, trailId ) );
 
 	vec3 offsetPosition = comPosBuffer.xyz;
-
-	outPos.xz *= sin( trailId * TPI.0 ) * 0.5 + 0.5;
 	
     vec3 delta = ( comPosBuffer.xyz - nextPosBuffer.xyz );
 	vec3 vec = normalize( delta );

@@ -156,3 +156,10 @@ h1 {
 	border-right: 2.5vmin solid transparent;
 }
 
+
+.dev {
+	visibility: hidden;
+	[data-dev="true"] {
+		visibility: visible;
+	}
+}

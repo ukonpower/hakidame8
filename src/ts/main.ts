@@ -55,6 +55,7 @@ class App {
 			if ( gpuState ) {
 
 				const memoryElm = document.createElement( 'div' );
+				memoryElm.classList.add( "dev" );
 				memoryElm.style.position = "absolute";
 				memoryElm.style.width = "50%";
 				memoryElm.style.maxWidth = "300px";
@@ -66,6 +67,7 @@ class App {
 				this.canvasWrap.appendChild( memoryElm );
 
 				const timerElm = document.createElement( 'div' );
+				timerElm.classList.add( "dev" );
 				timerElm.style.position = "absolute";
 				timerElm.style.maxWidth = "300px";
 				timerElm.style.width = "50%";

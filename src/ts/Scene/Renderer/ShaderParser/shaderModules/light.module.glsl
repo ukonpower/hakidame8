@@ -22,7 +22,7 @@ float compareShadowDepth( float lightDepth, sampler2D shadowMap, vec2 shadowCoor
 
 	if( shadowCoord.x >= 0.0 && shadowCoord.x <= 1.0 && shadowCoord.y >= 0.0 && shadowCoord.y <= 1.0 ) {
 
-		return step( lightDepth, shadowMapDepth + 0.002 );
+		return step( lightDepth, shadowMapDepth + 0.0005 );
 
 	}
 
