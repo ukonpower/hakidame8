@@ -20,6 +20,9 @@ void main( void ) {
 	}
 
 	outColor *= t * 0.6 + 0.4;
+
+	outColor.xyz *= vec3( 1.0, 1.0, 1.0 );
+
 	
 	#include <frag_out>
 

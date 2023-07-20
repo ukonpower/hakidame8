@@ -15,7 +15,7 @@ export class Trails extends GLP.Entity {
 
 		super();
 
-		const num = new GLP.Vector( 64, 128 );
+		const num = new GLP.Vector( 64, 256 );
 
 		// gpu
 

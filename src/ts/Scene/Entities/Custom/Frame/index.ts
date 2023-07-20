@@ -44,7 +44,12 @@ export class Frame extends GLP.Entity {
 		drawing.addComponent( "material", new GLP.Material( {
 			name: "frame",
 			type: [ "deferred", "shadowMap" ],
-			uniforms: GLP.UniformsUtils.merge( globalUniforms.time ),
+			uniforms: GLP.UniformsUtils.merge( globalUniforms.time, {
+				uRnd: {
+					value: Math.random(),
+					type: "1f"
+				}
+			} ),
 			frag: drawingFrag,
 		} ) );
 		this.add( drawing );

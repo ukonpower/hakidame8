@@ -491,11 +491,11 @@ export class MainCamera extends GLP.Entity {
 
 		const fov = this.cameraComponent.fov;
 		const focusDistance = this.tmpVector1.sub( this.tmpVector2 ).length();
-		const kFilmHeight = 0.036;
+		const kFilmHeight = 0.012;
 		const flocalLength = 0.5 * kFilmHeight / Math.tan( 0.5 * ( fov / 180 * Math.PI ) );
-		const maxCoc = 1 / this.rtDofBokeh.size.y * 2;
+		const maxCoc = 1 / this.rtDofBokeh.size.y * 4;
 		const rcpMaxCoC = 1.0 / maxCoc;
-		const coeff = flocalLength * flocalLength / ( 0.3 * ( focusDistance - flocalLength ) * kFilmHeight * 2.0 ) * 0.5;
+		const coeff = flocalLength * flocalLength / ( 0.3 * ( focusDistance - flocalLength ) * kFilmHeight * 2.0 );
 
 		this.dofParams.set( focusDistance, maxCoc, rcpMaxCoC, coeff );
 

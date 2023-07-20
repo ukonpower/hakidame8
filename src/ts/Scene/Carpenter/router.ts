@@ -19,6 +19,7 @@ import { Concrete } from '../Entities/Custom/Concrete';
 import { Frame } from '../Entities/Custom/Frame';
 import { Trails } from '../Entities/Custom/Trails';
 import { Target } from '../Entities/Custom/Target';
+import { Content8 } from '../Entities/Custom/Content8';
 
 export const router = ( node: GLP.BLidgeNode ) => {
 
@@ -98,7 +99,13 @@ export const router = ( node: GLP.BLidgeNode ) => {
 
 	} else if ( node.class == "Target" ) {
 
+		return new Content8();
+
 		return new Target();
+
+	} else if ( node.class == "Content8" ) {
+
+		return new Content8();
 
 	}
 

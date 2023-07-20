@@ -14,6 +14,8 @@ void main( void ) {
 	outNormal = normalize( outNormal );
 
 	outColor *= fbm( vec3( vUv * aspect * 10.0, fbm( vec3( vUv * aspect * 100.0, 0.0 ) ) ) ) * 0.5 + 0.5;
+
+	outColor.xyz *= vec3( 0.85, 0.9, 1.0 );
 	
 	#include <frag_out>
 
