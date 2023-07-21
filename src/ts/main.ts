@@ -109,19 +109,20 @@ class App {
 
 		const canvasAspect = window.innerWidth / window.innerHeight;
 
-		const scale = canvasAspect < 1.0 ? window.devicePixelRatio : 1.0;
+		let scale = canvasAspect < 1.0 ? Math.min( 1.5, window.devicePixelRatio ) : 1.0;
+		scale *= 1.0;
 
 		const blkRatioX = canvasAspect < 1.0 ? 0.75 : 1.0;
 		const blkRatioY = canvasAspect < 1.0 ? 0.7 : 0.5;
 
-		const width = window.innerWidth * scale * blkRatioX;
-		const height = window.innerHeight * scale * blkRatioY;
+		const width = window.innerWidth * blkRatioX;
+		const height = window.innerHeight * blkRatioY;
 
-		this.canvasWrap.style.width = width / scale + 'px';
-		this.canvasWrap.style.height = height / scale + 'px';
+		this.canvasWrap.style.width = width + 'px';
+		this.canvasWrap.style.height = height + 'px';
 
-		this.canvas.width = width;
-		this.canvas.height = height;
+		this.canvas.width = width * scale;
+		this.canvas.height = height * scale;
 
 		this.canvas.style.width = "100%";
 		this.canvas.style.height = "100%";
