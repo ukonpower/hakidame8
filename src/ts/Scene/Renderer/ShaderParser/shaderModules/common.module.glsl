@@ -50,9 +50,10 @@ struct Light {
 	vec3 color;
 };
 
-float atan2(in float y, in float x)
-{
+float atan2(in float y, in float x){
+
     return x == 0.0 ? sign(y)*PI/2.0 : atan(y, x);
+	
 }
 
 #define linearstep(edge0, edge1, x) min(max(((x) - (edge0)) / ((edge1) - (edge0)), 0.0), 1.0)
@@ -82,5 +83,11 @@ float easeBounce( float t, float b ) {
 
 	t = 1.0 - t;
 	return 1.0 - t * t * ( b * t - b + 1.0 );
+	
+}
+
+vec3 hsv2rgb( vec3 hsv ) {
+
+	return ((clamp(abs(fract(hsv.x+vec3(0,2,1)/3.)*6.-3.)-1.,0.,1.)-1.)*hsv.y+1.)*hsv.z;
 	
 }

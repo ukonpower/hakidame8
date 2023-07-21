@@ -574,7 +574,7 @@ export class MainCamera extends GLP.Entity {
 		this.cameraComponent.near = 0.01;
 		this.cameraComponent.far = 1000;
 		this.cameraComponent.aspect = resolution.x / resolution.y;
-		this.cameraComponent.fov = this.baseFov + Math.max( 0, 1 / this.cameraComponent.aspect - 1 ) * 20.0;
+		this.cameraComponent.fov = this.baseFov + Math.max( 0, 1 / this.cameraComponent.aspect - 1 ) * 50.0;
 		this.cameraComponent.updateProjectionMatrix();
 
 	}

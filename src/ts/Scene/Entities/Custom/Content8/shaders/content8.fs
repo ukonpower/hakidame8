@@ -129,11 +129,11 @@ void main( void ) {
 		vec3 n = N( rayPos - gridCenter, gridResult, 0.001 );
 		outNormal = normalize(modelMatrix * vec4( n, 0.0 )).xyz;
 		outColor = vec4( 0.05 );
-		outColor += smoothstep( 0.3, 0.7,  noise( gridResult.grid * 290.0 ) ) ;
 
-		// outColor.xyz = vec3( n );
+		float n1 = smoothstep( 0.3, 0.7, noise( gridResult.grid * 290.0 ) );
+		float n2 = smoothstep( 0.3, 0.7, noise( gridResult.grid * 9.0 + 100.0 ) );
+		outColor.xyz += hsv2rgb( vec3( 0.65, n1 * 0.3, n2 ) ) ;
 
-		
 	} else {
 
 		discard;
